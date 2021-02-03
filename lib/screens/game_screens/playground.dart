@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/src/gestures/tap.dart';
 import 'package:flutter_rocketman/screens/base.dart';
 import 'package:flutter_rocketman/screens/util/background.dart';
 
@@ -26,4 +27,7 @@ class PlayGround extends BaseWidget {
   void update() {
     // TODO: implement update
   }
+
+  @override
+  void onTapDown(TapDownDetails detail, Function fn) {}
 }

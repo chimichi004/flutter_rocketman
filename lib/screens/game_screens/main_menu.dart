@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/src/gestures/tap.dart';
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/game_screens/screen_manager.dart';
+import 'package:flutter_rocketman/screens/game_screens/screen_state.dart';
 import 'package:flutter_rocketman/screens/util/background.dart';
 import 'package:flutter_rocketman/screens/util/controller.dart';
 
@@ -39,5 +42,12 @@ class MainMenu extends BaseWidget {
     _background?.update();
     _startButton?.update();
     _logo?.update();
+  }
+
+  @override
+  void onTapDown(TapDownDetails detail, Function fn) {
+    _startButton.onTapDown(detail, () {
+      screenManager.switchScreen(ScreenState.kPlayScreen);
+    });
   }
 }
