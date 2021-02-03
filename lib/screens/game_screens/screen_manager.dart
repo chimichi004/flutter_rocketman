@@ -1,21 +1,31 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flame/util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/game_screens/playground.dart';
+import 'package:flutter_rocketman/screens/game_screens/screen_state.dart';
 import 'main_menu.dart';
 
 ScreenManager screenManager = ScreenManager();
 
-class ScreenManager extends Game {
+class ScreenManager extends Game with TapDetector {
+  Function _fn;
+  ScreenState _screenState;
+
   //Add the object BasedWidget main screen
   BaseWidget _mainScreen;
-  Function _fn;
+  BaseWidget _playScreen;
+
   Size size = Size(0, 0);
 
   ScreenManager() {
     _fn = _init;
+    _screenState = ScreenState.kMenuScreen;
   }
 
   @override
@@ -27,7 +37,7 @@ class ScreenManager extends Game {
   @override
   void render(Canvas canvas) {
     //If initialize? will render
-    _mainScreen?.render(canvas);
+    _getActiveScreen()?.render(canvas);
   }
 
   @override
@@ -51,6 +61,42 @@ class ScreenManager extends Game {
 
   void _update() {
     // call the update method on the main screen
-    _mainScreen?.update();
+    _getActiveScreen()?.update();
+  }
+
+  void onTapDown(TapDownDetails details) {
+    _getActiveScreen()?.onTapDown(details, () {});
+    print("Tapped!");
+    print("Tapperwerweewrwewerweed!");
+  }
+
+  BaseWidget _getActiveScreen() {
+    switch (_screenState) {
+      case ScreenState.kMenuScreen:
+        return _mainScreen;
+      case ScreenState.kPlayScreen:
+        return _playScreen;
+      default:
+        return _mainScreen;
+    }
+  }
+
+  void switchScreen(ScreenState newScreen) {
+    switch (newScreen) {
+      case ScreenState.kMenuScreen:
+        _mainScreen = MainMenu();
+        _mainScreen.resize(size);
+        Timer(Duration(milliseconds: 100), () {
+          _screenState = newScreen;
+        });
+        break;
+      case ScreenState.kPlayScreen:
+        _playScreen = PlayGround();
+        _playScreen.resize(size);
+        Timer(Duration(milliseconds: 100), () {
+          _screenState = newScreen;
+        });
+        break;
+    }
   }
 }

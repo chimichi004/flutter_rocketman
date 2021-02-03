@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/src/gestures/tap.dart';
 import 'package:flutter_rocketman/screens/base.dart';
 
 class Controller extends BaseWidget {
@@ -37,5 +38,18 @@ class Controller extends BaseWidget {
   @override
   void update() {
     //
+  }
+
+  @override
+  void onTapDown(TapDownDetails detail, Function fn) {
+    //
+    var pos = detail.globalPosition;
+    if (pos.dx >= spriteComponent.x &&
+        pos.dx <= spriteComponent.x + spriteComponent.width) {
+      if (pos.dy >= spriteComponent.y &&
+          pos.dy <= spriteComponent.y + spriteComponent.height) {
+        fn();
+      }
+    }
   }
 }

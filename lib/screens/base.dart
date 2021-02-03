@@ -11,5 +11,5 @@ abstract class BaseWidget {
 
   void update();
 
-  // void onTapDown(TapDownDetails detail, Function fn);
+  void onTapDown(TapDownDetails detail, Function fn);
 }
