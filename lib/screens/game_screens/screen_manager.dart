@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flame/util.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rocketman/screens/base.dart';
 import 'main_menu.dart';
 
@@ -36,11 +38,15 @@ class ScreenManager extends Game {
     _fn();
   }
 
-  void _init() {
+  void _init() async {
     //change the _fn varialbe to point
     _fn = _update;
     //construct the main screen
     _mainScreen = new MainMenu();
+
+    Util flameUtils = Util();
+    await flameUtils.fullScreen();
+    await flameUtils.setOrientation(DeviceOrientation.landscapeLeft);
   }
 
   void _update() {
