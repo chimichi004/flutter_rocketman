@@ -48,11 +48,12 @@ class ScreenManager extends Game with TapDetector {
     _fn();
   }
 
-  void _init() async {
+  Future<void> _init() async {
     //change the _fn varialbe to point
     _fn = _update;
     //construct the main screen
-    _mainScreen = new MainMenu();
+    _mainScreen = MainMenu();
+    _playScreen = PlayGround();
 
     Util flameUtils = Util();
     await flameUtils.fullScreen();
