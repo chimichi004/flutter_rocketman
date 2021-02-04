@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/src/gestures/tap.dart';
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/base_time.dart';
 import 'package:flutter_rocketman/screens/game_screens/screen_manager.dart';
 import 'package:flutter_rocketman/screens/game_screens/screen_state.dart';
 import 'package:flutter_rocketman/screens/util/background.dart';
 import 'package:flutter_rocketman/screens/util/controller.dart';
 
-class MainMenu extends BaseWidget {
+class MainMenu extends BaseTimeWidget {
   Background _background;
   BaseWidget _startButton;
   BaseWidget _logo;
@@ -37,7 +38,7 @@ class MainMenu extends BaseWidget {
   }
 
   @override
-  void update() {
+  void update(double t) {
     // update the _background
     _background?.update();
     _startButton?.update();

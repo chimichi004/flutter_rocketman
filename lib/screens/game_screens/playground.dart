@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/src/gestures/tap.dart';
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/base_time.dart';
 import 'package:flutter_rocketman/screens/game/player.dart';
 import 'package:flutter_rocketman/screens/util/background.dart';
 import 'package:flutter_rocketman/screens/util/dynamic_background.dart';
 
-class PlayGround extends BaseWidget {
+class PlayGround extends BaseTimeWidget {
   BaseWidget _bg;
   Player _player;
 
@@ -30,9 +31,9 @@ class PlayGround extends BaseWidget {
   }
 
   @override
-  void update() {
+  void update(double t) {
     //
-    _player.update();
+    _player.update(t);
     _bg.update();
   }
 

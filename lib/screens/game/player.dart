@@ -1,15 +1,21 @@
+import 'package:flame/animation.dart';
+import 'package:flame/components/animation_component.dart';
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/src/gestures/tap.dart';
 import 'dart:ui';
 
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/base_time.dart';
 
-class Player extends BaseWidget {
-  SpriteComponent _player;
+class Player extends BaseTimeWidget {
+  AnimationComponent _player;
 
   Player() {
-    _player = SpriteComponent.fromSprite(0, 0, Sprite('player/rocketman.png'));
+    List<Sprite> sprites =
+        [1, 2, 3, 4].map((e) => Sprite('player/${e}.png')).toList();
+    _player =
+        AnimationComponent(0, 0, Animation.spriteList(sprites, stepTime: 0.1));
   }
   @override
   void onTapDown(TapDownDetails detail, Function fn) {
@@ -35,7 +41,7 @@ class Player extends BaseWidget {
   }
 
   @override
-  void update() {
-    // TODO: implement update
+  void update(double t) {
+    _player.update(t);
   }
 }
