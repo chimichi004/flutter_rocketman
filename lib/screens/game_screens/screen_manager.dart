@@ -7,6 +7,7 @@ import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rocketman/screens/base.dart';
+import 'package:flutter_rocketman/screens/base_time.dart';
 import 'package:flutter_rocketman/screens/game_screens/playground.dart';
 import 'package:flutter_rocketman/screens/game_screens/screen_state.dart';
 import 'main_menu.dart';
@@ -18,8 +19,8 @@ class ScreenManager extends Game with TapDetector {
   ScreenState _screenState;
 
   //Add the object BasedWidget main screen
-  BaseWidget _mainScreen;
-  BaseWidget _playScreen;
+  BaseTimeWidget _mainScreen;
+  BaseTimeWidget _playScreen;
 
   Size size = Size(0, 0);
 
@@ -45,10 +46,10 @@ class ScreenManager extends Game with TapDetector {
     ///If initialize? will update
     //_mainScreen?.update();
     /// Executes the function to which _fn points
-    _fn();
+    _fn(t);
   }
 
-  Future<void> _init() async {
+  Future<void> _init(double t) async {
     //change the _fn varialbe to point
     _fn = _update;
     //construct the main screen
@@ -60,9 +61,9 @@ class ScreenManager extends Game with TapDetector {
     await flameUtils.setOrientation(DeviceOrientation.landscapeLeft);
   }
 
-  void _update() {
+  void _update(double t) {
     // call the update method on the main screen
-    _getActiveScreen()?.update();
+    _getActiveScreen()?.update(t);
   }
 
   void onTapDown(TapDownDetails details) {
@@ -71,7 +72,7 @@ class ScreenManager extends Game with TapDetector {
     print("Tapperwerweewrwewerweed!");
   }
 
-  BaseWidget _getActiveScreen() {
+  BaseTimeWidget _getActiveScreen() {
     switch (_screenState) {
       case ScreenState.kMenuScreen:
         return _mainScreen;
