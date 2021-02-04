@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/src/gestures/tap.dart';
@@ -37,7 +39,10 @@ class Rocket extends BaseEnemy {
     _rocket.width = size.width * 0.12;
     _rocket.height = size.height * 0.08;
 
-    _rocket.y = size.height / 2;
+    //random spawning position
+    Random r = Random();
+
+    _rocket.y = size.height * 0.2 + size.height * 0.2 * r.nextInt(3);
     _x = size.width + _rocket.width;
   }
 
