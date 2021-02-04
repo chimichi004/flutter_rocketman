@@ -33,8 +33,8 @@ class PlayGround extends BaseTimeWidget {
   void resize(Size size) {
     _bg.resize(size);
     //_rocket.resize(size);
-    _player.resize(size);
     enemiesFactory.resize(size);
+    _player.resize(size);
   }
 
   @override

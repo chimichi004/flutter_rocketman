@@ -11,6 +11,7 @@ class Rocket extends BaseEnemy {
   SpriteComponent _rocket;
   double _x;
   Size _size = Size(0, 0);
+  bool _dead = false;
 
   Rocket() {
     _rocket =
@@ -50,6 +51,16 @@ class Rocket extends BaseEnemy {
   @override
   bool isDead() {
     // TODO: implement isDead
-    return _x < -_rocket.width;
+    return _x < -_rocket.width || _dead;
+  }
+
+  @override
+  void hit() {
+    _dead = true;
+  }
+
+  @override
+  bool overlaps(Rect rect) {
+    return _rocket.toRect().overlaps(rect);
   }
 }

@@ -7,6 +7,7 @@ import 'dart:ui';
 
 import 'package:flutter_rocketman/screens/base.dart';
 import 'package:flutter_rocketman/screens/base_time.dart';
+import 'package:flutter_rocketman/screens/game/enemies/enemies_factory.dart';
 
 class Player extends BaseTimeWidget {
   AnimationComponent _player;
@@ -84,5 +85,10 @@ class Player extends BaseTimeWidget {
 
     _player.update(t);
     _smoke.update(t);
+
+    var rect = _player.toRect();
+    for (var e in enemiesFactory.enemies) {
+      if (e.overlaps(rect)) e.hit();
+    }
   }
 }
