@@ -10,6 +10,7 @@ import 'package:flutter_rocketman/screens/base_time.dart';
 
 class Player extends BaseTimeWidget {
   AnimationComponent _player;
+  AnimationComponent _smoke;
   double _speed;
   double _maxSpeed;
   double _y;
@@ -19,6 +20,12 @@ class Player extends BaseTimeWidget {
     List<Sprite> sprites =
         [1, 2, 3, 4].map((e) => Sprite('player/${e}.png')).toList();
     _player =
+        AnimationComponent(0, 0, Animation.spriteList(sprites, stepTime: 0.1));
+
+    sprites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        .map((e) => Sprite('player/s${e}.png'))
+        .toList();
+    _smoke =
         AnimationComponent(0, 0, Animation.spriteList(sprites, stepTime: 0.1));
 
     _speed = 0;
@@ -35,7 +42,12 @@ class Player extends BaseTimeWidget {
 
   @override
   void render(Canvas canvas) {
-    //
+    if (_speed < _maxSpeed) {
+      canvas.save();
+      _smoke.y = _y + _player.height * 0.5;
+      _smoke.render(canvas);
+      canvas.restore();
+    }
     canvas.save();
     _player.y = _y;
     _player.render(canvas);
@@ -49,7 +61,12 @@ class Player extends BaseTimeWidget {
     _y = (size.height - size.height * 0.25) / 2;
     _maxSpeed = size.height * 0.005;
 
-    _player.x = 0;
+    _smoke.x = _size.width * 0.005;
+    //_smoke.y = (size.height - size.height * 0.25) / 2;
+    _smoke.width = size.width * 0.15;
+    _smoke.height = size.height * 0.25;
+
+    _player.x = _size.width * 0.1;
     //_player.y = (size.height - size.height * 0.25) / 2;
     _player.width = size.width * 0.15;
     _player.height = size.height * 0.25;
@@ -57,7 +74,7 @@ class Player extends BaseTimeWidget {
 
   @override
   void update(double t) {
-    _speed += t * 10;
+    _speed += t * _maxSpeed * 3;
     if (_speed > _maxSpeed) _speed = _maxSpeed;
     _y += _speed;
 
@@ -66,5 +83,6 @@ class Player extends BaseTimeWidget {
     if (_y < 0) _y = 0;
 
     _player.update(t);
+    _smoke.update(t);
   }
 }
